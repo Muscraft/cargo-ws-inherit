@@ -1,0 +1,14 @@
+[package]
+name = "eee"
+version = "0.1.0"
+
+[dependencies]
+roff = "0.2.1"
+bbb = { workspace = true, features = ["default"] }
+
+[dev-dependencies]
+snapbox.workspace = true
+bbb.workspace = true
+
+[features]
+default = []

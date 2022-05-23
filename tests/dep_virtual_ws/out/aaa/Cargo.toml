@@ -1,0 +1,21 @@
+[package]
+name = "aaa"
+version = "0.1.0"
+
+[dependencies]
+bbb = { optional = true, workspace = true, features = ["default"] }
+is_executable = { version = "1.0.1", optional = true }
+os_str_bytes = { optional = true, workspace = true }
+pathdiff = { optional = true, workspace = true }
+shlex = { version = "1.1.0", optional = true }
+unicode-xid = { version = "0.2.2", optional = true }
+
+[dev-dependencies]
+pretty_assertions = "1.0"
+snapbox.workspace = true
+# Cutting out `filesystem` feature
+trycmd = { version = "0.13", default-features = false, features = ["color-auto", "diff", "examples"] }
+
+[features]
+default = []
+unstable-dynamic = ["bbb", "shlex", "unicode-xid", "os_str_bytes", "is_executable", "pathdiff"]

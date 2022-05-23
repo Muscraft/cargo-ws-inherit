@@ -1,0 +1,35 @@
+[package]
+name = "clap_derive"
+version = "3.1.18"
+edition = "2018"
+include = [
+	"src/**/*",
+	"Cargo.toml",
+	"LICENSE-*",
+	"README.md"
+]
+description = "Parse command line argument by defining a struct, derive crate."
+repository = "https://github.com/clap-rs/clap/tree/master/clap_derive"
+documentation = "https://docs.rs/clap_derive"
+keywords = [
+	"clap",
+	"cli",
+	"parse",
+	"derive",
+	"proc_macro"
+]
+categories = ["command-line-interface", "development-tools::procedural-macro-helpers"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+[dependencies]
+syn = { version = "1.0.74", features = ["full"] }
+quote = "1.0.9"
+proc-macro2 = "1.0.28"
+heck = "0.4.0"
+proc-macro-error = "1"
+
+[features]
+default = []
+debug = []
+unstable-v4 = []

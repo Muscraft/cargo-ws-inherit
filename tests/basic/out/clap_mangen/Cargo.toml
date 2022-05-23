@@ -1,0 +1,34 @@
+[package]
+name = "clap_mangen"
+version = "0.1.6"
+edition = "2018"
+include = [
+	"src/**/*",
+	"Cargo.toml",
+	"LICENSE-*",
+	"README.md"
+]
+description = "A manpage generator for clap"
+repository = "https://github.com/clap-rs/clap/tree/master/clap_mangen"
+documentation = "https://docs.rs/clap_mangen"
+keywords = [
+	"clap",
+	"cli",
+	"generate",
+	"manpage",
+]
+categories = ["command-line-interface"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+[dependencies]
+roff = "0.2.1"
+clap = { features = ["env"], workspace = true }
+
+[dev-dependencies]
+snapbox = { features = ["diff"], workspace = true }
+clap.workspace = true
+
+[features]
+default = []
+debug = ["clap/debug"]

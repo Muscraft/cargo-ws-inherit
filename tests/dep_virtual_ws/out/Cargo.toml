@@ -1,0 +1,14 @@
+[workspace]
+members = [
+	"aaa",
+	"bbb",
+	"ccc",
+	"ddd",
+	"eee",
+]
+
+[workspace.dependencies]
+bbb = { version = "0.1.0", path = "bbb", default-features = false }
+os_str_bytes = { version = "6.0", default-features = false, features = ["raw_os_str"] }
+pathdiff = "0.2.1"
+snapbox = { version = "0.2", features = ["diff"] }

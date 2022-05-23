@@ -1,0 +1,6 @@
+[package]
+name = "ddd"
+version = "0.1.0"
+
+[dependencies]
+os_str_bytes = { version = "6.0", default-features = false, features = ["raw_os_str"] }

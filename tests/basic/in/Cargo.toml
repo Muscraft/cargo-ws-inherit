@@ -1,0 +1,93 @@
+[workspace]
+members = [
+	"clap_derive",
+	"clap_lex",
+	"clap_complete",
+	"clap_complete_fig",
+	"clap_mangen",
+]
+
+[package]
+name = "clap"
+version = "3.1.18"
+description = "A simple to use, efficient, and full-featured Command Line Argument Parser"
+repository = "https://github.com/clap-rs/clap"
+documentation = "https://docs.rs/clap/"
+categories = ["command-line-interface"]
+keywords = [
+	"argument",
+	"cli",
+	"arg",
+	"parser",
+	"parse"
+]
+edition = "2018"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+include = [
+  "build.rs",
+  "src/**/*",
+  "Cargo.toml",
+  "LICENSE*",
+  "README.md",
+  "benches/**/*",
+  "examples/**/*"
+]
+
+[features]
+default = [
+	"std",
+	"color",
+	"suggestions",
+]
+debug = ["clap_derive/debug", "backtrace"] # Enables debug messages
+unstable-doc = ["derive", "cargo", "wrap_help", "yaml", "env", "unicode", "regex", "unstable-replace", "unstable-multicall", "unstable-grouped"] # for docs.rs
+
+# Used in default
+std = ["indexmap/std"] # support for no_std in a backwards-compatible way
+color = ["atty", "termcolor"]
+suggestions = ["strsim"]
+
+# Optional
+derive = ["clap_derive", "lazy_static"]
+cargo = ["lazy_static"] # Disable if you're not using Cargo, enables Cargo-env-var-dependent macros
+wrap_help = ["terminal_size", "textwrap/terminal_size"]
+yaml = ["yaml-rust"]
+env = [] # Use environment variables during arg parsing
+unicode = ["textwrap/unicode-width", "unicase"]  # Support for unicode characters in arguments and help messages
+
+# In-work features
+unstable-replace = []
+unstable-multicall = []
+unstable-grouped = []
+# note: this will always enable clap_derive, change this to `clap_derive?/unstable-v4` when MSRV is bigger than 1.60
+unstable-v4 = ["clap_derive/unstable-v4"]
+
+
+[dependencies]
+clap_derive = { path = "./clap_derive", version = "=3.1.18", optional = true }
+clap_lex = { path = "./clap_lex", version = "0.2.0" }
+bitflags = "1.2"
+textwrap = { version = "0.15.0", default-features = false, features = [] }
+unicase = { version = "2.6", optional = true }
+indexmap = "1.0"
+strsim = { version = "0.10",  optional = true }
+yaml-rust = { version = "0.4.1",  optional = true }
+atty = { version = "0.2",  optional = true }
+termcolor = { version = "1.1.1", optional = true }
+terminal_size = { version = "0.1.12", optional = true }
+lazy_static = { version = "1", optional = true }
+regex = { version = "1.0", optional = true }
+backtrace = { version = "0.3", optional = true }
+
+[dev-dependencies]
+regex = "1.0"
+lazy_static = "1"
+criterion = "0.3.2"
+trybuild = "1.0.18"
+rustversion = "1"
+# Cutting out `filesystem` feature
+trycmd = { version = "0.13", default-features = false, features = ["color-auto", "diff", "examples"] }
+humantime = "2"
+snapbox = "0.2.9"
+shlex = "1.1.0"

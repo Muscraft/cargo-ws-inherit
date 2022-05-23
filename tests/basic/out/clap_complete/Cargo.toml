@@ -1,0 +1,46 @@
+[package]
+name = "clap_complete"
+version = "3.1.4"
+edition = "2018"
+include = [
+  "build.rs",
+  "src/**/*",
+  "Cargo.toml",
+  "LICENSE*",
+  "README.md",
+  "benches/**/*",
+  "examples/**/*"
+]
+description = "Generate shell completion scripts for your clap::Command"
+repository = "https://github.com/clap-rs/clap/tree/master/clap_complete"
+documentation = "https://docs.rs/clap_complete"
+keywords = [
+	"clap",
+	"cli",
+	"completion",
+	"bash",
+]
+categories = ["command-line-interface"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+
+[dependencies]
+clap.workspace = true
+clap_lex = { optional = true, workspace = true }
+is_executable = { version = "1.0.1", optional = true }
+os_str_bytes = { optional = true, workspace = true }
+pathdiff = { version = "0.2.1", optional = true }
+shlex = { optional = true, workspace = true }
+unicode-xid = { version = "0.2.2", optional = true }
+
+[dev-dependencies]
+pretty_assertions = "1.0"
+snapbox = { features = ["diff"], workspace = true }
+trycmd.workspace = true
+clap = { features = ["derive"], workspace = true }
+
+[features]
+default = []
+unstable-dynamic = ["clap_lex", "shlex", "unicode-xid", "os_str_bytes", "clap/derive", "is_executable", "pathdiff"]
+debug = ["clap/debug"]

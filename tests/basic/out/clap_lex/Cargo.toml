@@ -1,0 +1,26 @@
+[package]
+name = "clap_lex"
+version = "0.2.0"
+edition = "2018"
+include = [
+	"src/**/*",
+	"Cargo.toml",
+	"LICENSE-*",
+	"README.md"
+]
+description = "Minimal, flexible command line parser"
+repository = "https://github.com/clap-rs/clap/tree/master/clap_lex"
+documentation = "https://docs.rs/clap_lex"
+keywords = [
+	"argument",
+	"cli",
+	"arg",
+	"parser",
+	"parse"
+]
+categories = ["command-line-interface"]
+license = "MIT OR Apache-2.0"
+readme = "README.md"
+
+[dependencies]
+os_str_bytes.workspace = true

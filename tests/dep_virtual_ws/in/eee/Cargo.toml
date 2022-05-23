@@ -1,0 +1,14 @@
+[package]
+name = "eee"
+version = "0.1.0"
+
+[dependencies]
+roff = "0.2.1"
+bbb = { version = "0.1.0", path = "../bbb" }
+
+[dev-dependencies]
+snapbox = { version = "0.2", features = ["diff"] }
+bbb = { version = "0.1.0", path = "../bbb", default-features = false }
+
+[features]
+default = []

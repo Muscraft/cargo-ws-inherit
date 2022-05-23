@@ -1,0 +1,9 @@
+[package]
+name = "bbb"
+version = "0.1.0"
+
+[dependencies]
+pathdiff.workspace = true
+
+[dev-dependencies]
+snapbox.workspace = true

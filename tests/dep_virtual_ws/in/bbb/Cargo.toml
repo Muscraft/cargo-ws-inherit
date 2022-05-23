@@ -1,0 +1,9 @@
+[package]
+name = "bbb"
+version = "0.1.0"
+
+[dependencies]
+pathdiff = "0.2"
+
+[dev-dependencies]
+snapbox = { version = "0.2", features = ["diff"] }

@@ -1,0 +1,15 @@
+[package]
+name = "ccc"
+version = "0.1.0"
+
+[dependencies]
+syn = { version = "1.0.74", features = ["full"] }
+quote = "1.0.9"
+proc-macro2 = "1.0.28"
+heck = "0.4.0"
+proc-macro-error = "1"
+
+[features]
+default = []
+debug = []
+unstable-v4 = []
