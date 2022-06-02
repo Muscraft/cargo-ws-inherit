@@ -9,7 +9,7 @@ fn basic() {
     let project = Project::from_template(curr_dir!().join("in"));
     let project_root = project.root();
     let cwd = &project_root;
-    snapbox::cmd::Command::new("../../../../debug/cargo-ws-inherit")
+    snapbox::cmd::Command::new(snapbox::cmd::cargo_bin("cargo-ws-inherit"))
         .arg("run")
         .current_dir(cwd)
         .assert()
