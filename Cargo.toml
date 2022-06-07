@@ -12,7 +12,6 @@ include = [
 anyhow = "1.0.57"
 cargo = { git = "https://github.com/Muscraft/cargo", branch = "cargo-ws-inherit" }
 cargo-util = "0.1.2"
-cargo-test-support = { git = "https://github.com/Muscraft/cargo", branch = "cargo-ws-inherit" }
 clap = { version = "3.1.18" }
 indexmap = "1.8.1"
 itertools = "0.10.3"
@@ -21,4 +20,5 @@ semver = "1.0.9"
 toml_edit = "0.14.4"
 
 [dev-dependencies]
+cargo-test-support = { git = "https://github.com/Muscraft/cargo", branch = "cargo-ws-inherit" }
 snapbox = "0.2.10"

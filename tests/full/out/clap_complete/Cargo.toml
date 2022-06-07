@@ -3,7 +3,7 @@ cargo-features = ["workspace-inheritance"]
 [package]
 name = "clap_complete"
 version = "3.1.4"
-edition = "2018"
+edition.workspace = true
 include = [
   "build.rs",
   "src/**/*",
@@ -23,7 +23,7 @@ keywords = [
 	"bash",
 ]
 categories = ["command-line-interface"]
-license = "MIT OR Apache-2.0"
+license.workspace = true
 readme = "README.md"
 
 

@@ -3,7 +3,7 @@ cargo-features = ["workspace-inheritance"]
 [package]
 name = "clap_lex"
 version = "0.2.0"
-edition = "2018"
+edition.workspace = true
 include = [
 	"src/**/*",
 	"Cargo.toml",
@@ -21,7 +21,7 @@ keywords = [
 	"parse"
 ]
 categories = ["command-line-interface"]
-license = "MIT OR Apache-2.0"
+license.workspace = true
 readme = "README.md"
 
 [dependencies]
