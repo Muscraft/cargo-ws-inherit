@@ -96,7 +96,6 @@ fn main() -> CargoResult<()> {
     for (ws_dep, ident_deps) in shared_deps {
         if !ws.is_virtual() {
             let member = members.get_mut(&ws_name).unwrap();
-            add_feature_flag(member)?;
             member.insert_into_table(&ws_dep_table, &ws_dep)?;
         } else {
             manifest.insert_into_table(&ws_dep_table, &ws_dep)?;
@@ -122,7 +121,6 @@ fn main() -> CargoResult<()> {
                 }
             }
             let member = members.get_mut(&ident_dep.package_name).unwrap();
-            add_feature_flag(member)?;
             member.insert_into_table(&ident_dep.dep_kind, &dep)?;
         }
     }
@@ -145,7 +143,6 @@ fn main() -> CargoResult<()> {
             if item_map.members.len() > 1 {
                 if !ws.is_virtual() {
                     let member = members.get_mut(&ws_name).unwrap();
-                    add_feature_flag(member)?;
                     write_pkg_key(member, &ws_pkg_table, key, &item_map.item)?;
                 } else {
                     write_pkg_key(&mut manifest, &ws_pkg_table, key, &item_map.item)?;
@@ -153,7 +150,6 @@ fn main() -> CargoResult<()> {
 
                 for member_name in &item_map.members {
                     let member = members.get_mut(member_name).unwrap();
-                    add_feature_flag(member)?;
                     write_pkg_key(member, &[String::from("package")], key, &ws_item)?;
                 }
             }
@@ -332,31 +328,6 @@ fn write_pkg_key(
     Ok(())
 }
 
-/// This adds `cargo-features = ["workspace-inheritance"]` to a toml file.
-/// If `cargo-features` already exists it add `"workspace-inheritance"` to it
-fn add_feature_flag(local: &mut LocalManifest) -> CargoResult<()> {
-    let key = "cargo-features";
-    let table = local.get_table_mut(&[])?;
-
-    if let Some(existing_item) = table.as_table_like_mut().unwrap().get_mut(key) {
-        let array = existing_item.as_array_mut().unwrap();
-        if !array
-            .clone()
-            .into_iter()
-            .map(|flag| flag.as_str().unwrap().to_string())
-            .contains(&String::from("workspace-inheritance"))
-        {
-            array.push("workspace-inheritance");
-        }
-    } else {
-        let mut item = toml_edit::Array::new();
-        item.push("workspace-inheritance");
-        item.decor_mut().set_suffix("\n");
-        table[key] = toml_edit::value(item);
-    }
-    Ok(())
-}
-
 fn sort_ws_inherit_tables(member: &mut LocalManifest) {
     let ws_dep_table = vec!["workspace", "dependencies"];
     let ws_dep_table = ws_dep_table
@@ -379,9 +350,7 @@ fn sort_ws_inherit_tables(member: &mut LocalManifest) {
 
 #[cfg(test)]
 mod tests {
-    use crate::{add_feature_flag, select_semver};
-    use cargo::ops::cargo_add::manifest::{LocalManifest, Manifest};
-    use std::str::FromStr;
+    use crate::select_semver;
 
     #[test]
     fn semver_minor_patch() {
@@ -402,31 +371,5 @@ mod tests {
 
         let versions = vec!["2.3.2", "1.4", "1.3.10"];
         select_semver(&versions).expect_err("Expected error");
-    }
-
-    #[test]
-    fn add_cargo_features() {
-        let mut local = LocalManifest {
-            path: Default::default(),
-            manifest: Manifest::from_str("").unwrap(),
-        };
-        add_feature_flag(&mut local).unwrap();
-        assert_eq!(
-            local.manifest.to_string(),
-            "cargo-features = [\"workspace-inheritance\"]\n\n"
-        );
-    }
-
-    #[test]
-    fn update_cargo_features() {
-        let mut local = LocalManifest {
-            path: Default::default(),
-            manifest: Manifest::from_str("cargo-features = [\"testing\"]\n\n").unwrap(),
-        };
-        add_feature_flag(&mut local).unwrap();
-        assert_eq!(
-            local.manifest.to_string(),
-            "cargo-features = [\"testing\", \"workspace-inheritance\"]\n\n"
-        );
     }
 }
